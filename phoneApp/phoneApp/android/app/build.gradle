@@ -1,0 +1,51 @@
+apply plugin: "com.facebook.react.rootproject"
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+android {
+    namespace "com.phoneapp"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.phoneapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        ndkVersion rootProject.ext.ndkVersion
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+dependencies {
+    implementation("com.facebook.react:react-android")
+    implementation project(':react-native-wear-connectivity')
+
+    if (project.hasProperty("hermesEnabled") && project.property("hermesEnabled").toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+        implementation jscFlavor
+    }
+}
