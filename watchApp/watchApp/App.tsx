@@ -3,50 +3,41 @@ import { View, Text, StyleSheet } from "react-native";
 import { watchEvents } from "react-native-wear-connectivity";
 
 export default function WatchApp() {
-  const [receivedText, setReceivedText] = useState('Waiting for message...');
-  const [status, setStatus] = useState('Ready');
+  const [message, setMessage] = useState('⌚ Waiting for messages...');
+  const [status, setStatus] = useState('Listening...');
 
   useEffect(() => {
-    // Listen for messages from phone
-    const unsubscribe = watchEvents.on('message', (message) => {
-      console.log('⌚ Received from phone:', message);
+    const handleMessage = (receivedMessage) => {
+      console.log('Message received:', receivedMessage);
 
-      try {
-        // Parse the message
-        let data;
-        if (typeof message === 'string') {
-          data = JSON.parse(message);
-        } else if (message.data) {
-          data = typeof message.data === 'string' ? JSON.parse(message.data) : message.data;
-        } else {
-          data = message;
-        }
-
-        // Check if it's our text message
-        if (data.type === "SHOW_TEXT") {
-          setReceivedText(data.text);
-          setStatus('Message received!');
-          console.log('⌚ Showing text:', data.text);
-        }
-      } catch (error) {
-        console.log('❌ Error parsing message:', error);
-        setStatus('Error receiving message');
+      let displayText = '';
+      if (typeof receivedMessage === 'string') {
+        displayText = receivedMessage;
+      } else if (receivedMessage && receivedMessage.text) {
+        displayText = receivedMessage.text;
+      } else {
+        displayText = String(receivedMessage);
       }
-    });
+
+      setMessage(displayText);
+      setStatus('✅ Message received!');
+    };
+
+    const unsubscribe = watchEvents.on('message', handleMessage);
 
     return () => {
-      unsubscribe();
+      if (unsubscribe) unsubscribe();
     };
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>⌚ Watch Display</Text>
+      <Text style={styles.title}>⌚ Watch</Text>
 
       <Text style={styles.status}>{status}</Text>
 
       <View style={styles.messageContainer}>
-        <Text style={styles.messageText}>{receivedText}</Text>
+        <Text style={styles.messageText}>{message}</Text>
       </View>
     </View>
   );
@@ -56,26 +47,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    justifyContent: 'center',
     backgroundColor: '#000',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,
     fontWeight: 'bold',
     color: '#fff',
   },
   status: {
-    fontSize: 12,
+    fontSize: 14,
     textAlign: 'center',
-    marginBottom: 15,
+    marginBottom: 20,
     color: '#999',
   },
   messageContainer: {
     backgroundColor: '#333',
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 8,
     minHeight: 100,
     justifyContent: 'center',
   },

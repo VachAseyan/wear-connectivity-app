@@ -6,16 +6,16 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "test": "jest",
-    "start": "react-native start --host 192.168.0.22 --port 8082",
-    "android": "react-native run-android --deviceId emulator-5554",
-    "setup": "adb -e reverse tcp:8082 tcp:8082",
+    "start": "react-native start",
+    "android": "react-native run-android",
     "dev": "npm run setup && npm run android"
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.80.2",
     "react": "19.1.0",
     "react-native": "0.80.2",
-    "react-native-wear-connectivity": "^0.1.14"
+    "react-native-wear-connectivity": "^0.1.14",
+    "react-native-websocket": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

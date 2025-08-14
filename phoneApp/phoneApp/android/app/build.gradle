@@ -4,17 +4,19 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 android {
-    namespace "com.phoneapp"
+    namespace "com.wearproject"
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.phoneapp"
+        applicationId "com.wearproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         ndkVersion rootProject.ext.ndkVersion
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+        buildConfigField "boolean", "IS_HERMES_ENABLED", isHermesEnabled().toString()
     }
 
     signingConfigs {
@@ -48,4 +50,12 @@ dependencies {
         def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
         implementation jscFlavor
     }
+}
+
+def isNewArchitectureEnabled() {
+    return findProperty("newArchEnabled") == "true"
+}
+
+def isHermesEnabled() {
+    return findProperty("hermesEnabled") != "false"
 }

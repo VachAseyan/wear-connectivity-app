@@ -5397,7 +5397,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.8.1:
+prop-types@^15.6.1, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5482,6 +5482,13 @@ react-native-wear-connectivity@^0.1.14:
   version "0.1.14"
   resolved "https://registry.npmjs.org/react-native-wear-connectivity/-/react-native-wear-connectivity-0.1.14.tgz"
   integrity sha512-dgyolLa+6cuYxk60mSsnqGGrNRAGjIj/ZeZJJfedvlIzH6TGm4yTKVOBgtrAQ8yVWlwUHbwVJtZkTuTYnNh9DA==
+
+react-native-websocket@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/react-native-websocket/-/react-native-websocket-1.0.2.tgz"
+  integrity sha512-V0yP5gEHrfP6dj3DEgMywf+yyqN6B0csGdPxv8sLSpmEQoN3e9umhwkz0OC/7Tl5BR0yAISSDIs4w95Lp1Sudg==
+  dependencies:
+    prop-types "^15.6.1"
 
 react-native@*, react-native@0.80.2:
   version "0.80.2"
